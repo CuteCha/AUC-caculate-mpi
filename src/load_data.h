@@ -15,9 +15,9 @@
 #define MPI_CLK_TAG (1)
 
 typedef struct{
-    float clk;
-    float nclk;
-    long idx;
+    double nclk;
+    double clk;
+    long int idx;
 }predinfo;
 
 class Load_Data{
@@ -29,9 +29,9 @@ class Load_Data{
 
     void init(){
         pctr = 0.0;
-        nclk = 0;
-        clk = 0;
-        MAX_ARRAY_SIZE = 2000;
+        nclk = 0.0;
+        clk = 0.0;
+        MAX_ARRAY_SIZE = 1000;
     } 
 
     int load_pctr_nclk_clk(const char* str_ins_path, int rank){
@@ -50,11 +50,9 @@ class Load_Data{
             int pos = line.find(CTRL_B);
             if(pos <= 0) tmpstr = line;
             else tmpstr = line.substr(0, pos);
-
             pos = tmpstr.find(TAB);
             pctr = atof(tmpstr.substr(0, pos).c_str());
             tmpstr = tmpstr.substr(pos+1, tmpstr.size() - pos -1);
-
             pos = tmpstr.find(TAB);
             nclk = atof(tmpstr.substr(0, pos).c_str());
             tmpstr = tmpstr.substr(pos+1, tmpstr.size() - pos -1);
@@ -67,13 +65,13 @@ class Load_Data{
             predictinfo.clk = clk;
             predictinfo.idx = id;
             predict_list.push_back(predictinfo);
-        }
+        }//end while
     }
     public:
     int MAX_ARRAY_SIZE;
     std::vector<predinfo> predict_list;
     private:
-    float pctr;
-    float nclk;
-    float clk;
+    double pctr;
+    double nclk;
+    double clk;
 };

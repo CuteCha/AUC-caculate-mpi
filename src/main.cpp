@@ -11,9 +11,9 @@ int main(int argc, char* argv[]){
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     snprintf(pctr_file, sizeof(pctr_file), "%s", argv[1]);
     
-    Load_Data ld;
-    ld.load_pctr_nclk_clk(pctr_file, rank);
-    AUC auc(&ld);
+    Load_Data load_data;
+    load_data.load_pctr_nclk_clk(pctr_file, rank);
+    AUC auc(&load_data);
     auc.run(nproc, rank);
     
     MPI_Finalize();

@@ -11,8 +11,7 @@ class AUC{
     AUC(Load_Data* ld) : data(ld){
         init();
     }
-    ~AUC(){
-    }
+    ~AUC(){}
 
     void init(){
         auc = 0.0;
@@ -21,7 +20,8 @@ class AUC{
         glo_nclk = new float[data->MAX_ARRAY_SIZE];
         glo_clk = new float[data->MAX_ARRAY_SIZE];
     }
-    int single_node_merge(){
+
+    void single_node_merge(){
         memset(glo_nclk, 0, data->MAX_ARRAY_SIZE * sizeof(float));
         memset(glo_clk, 0, data->MAX_ARRAY_SIZE * sizeof(float));
         int cnt = data->predict_list.size();
@@ -30,7 +30,6 @@ class AUC{
             glo_nclk[idx] += data->predict_list[i].nclk;
             glo_clk[idx] += data->predict_list[i].clk;
         }
-        return 0;
     }
 
     int auc_calculate(float* all_click, float* all_nclick, double& auc_res){
